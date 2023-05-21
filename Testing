@@ -1,0 +1,152 @@
+package org.sample;
+
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+import java.util.Date;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+public class SunNxt {
+	static WebDriver driver;
+	static BaseClass base = new BaseClass();
+	int testCaseCount = 0;
+
+	@BeforeClass
+	private void browserLaunch() {
+		WebDriver browserLaunch = base.browserLaunch();
+		base.LoadUrl("https://www.google.com/");
+	}
+
+	@BeforeMethod
+	private void startTime() {
+		Date d = new Date();
+		testCaseCount++;
+		System.out.println("\n" + "TestCase" + " #" + testCaseCount + "\nStart Time:" + "\n" + d);
+
+	}
+
+	@Test(priority = 0)
+	private void sunNxtWebPage() throws AWTException, InterruptedException {
+		WebElement txtUrl = base.xpathFE("//textarea[@class='gLFyf']");
+		base.sendValue(txtUrl, "sun nxt");
+		Robot r = new Robot();
+		r.keyPress(KeyEvent.VK_ENTER);
+		r.keyRelease(KeyEvent.VK_ENTER);
+		WebElement btnUrl = base.xpathFE("(//h3[@class='LC20lb MBeuO DKV0Md'])[1]");
+		base.click(btnUrl);
+		Thread.sleep(3000);
+	}
+
+	@Test(priority = 1)
+	private void newUserSignUp() throws InterruptedException {
+
+		WebElement btnProfile = base.xpathFE("//img[@alt='myaccount']");
+		base.click(btnProfile);
+		WebElement btnSignIn = base.xpathFE("//a[@href='/signin']");
+		base.click(btnSignIn);
+		Thread.sleep(3000);
+
+		WebElement btnSignUp = base.xpathFE("//a[text()='SIGN UP']");
+		base.click(btnSignUp);
+		WebElement txtEmailOrMobile = base.xpathFE("(//input[@type='text'])[1]");
+		base.sendValue(txtEmailOrMobile, "9843667158");
+		WebElement txtName = base.xpathFE("(//input[@type='text'])[2]");
+		base.sendValue(txtName, "Mukesh");
+		WebElement txtPassword = base.xpathFE("//input[@type='password']");
+		base.sendValue(txtPassword, "testid@33");
+		WebElement ddAge = base.xpathFE("//select[@name='age']");
+		base.click(ddAge);
+		base.selectByVisibleText(ddAge, "18-25 Years");
+		WebElement btnGender = base.xpathFE("//label[@for='male']");
+		base.click(btnGender);
+		WebElement ddCountry = base.xpathFE("//select[@name='country']");
+		base.click(ddCountry);
+		base.selectByvalue(ddCountry, "101");
+		Thread.sleep(2000);
+		WebElement ddState = base.xpathFE("//select[@name='state']");
+		base.click(ddState);
+		base.selectByvalue(ddState, "35");
+		WebElement cbxTandC = base.xpathFE("//input[@type='checkbox']");
+		base.click(cbxTandC);
+		WebElement btnSignUp1 = base.xpathFE("//button[@type=\"submit\"]");
+		base.click(btnSignUp1);
+		Thread.sleep(5000);
+	}
+
+	@Test(priority = 2)
+	private void logout() throws InterruptedException {
+
+		WebElement btnProfile1 = base.xpathFE("//img[@alt='myaccount']");
+		base.click(btnProfile1);
+		WebElement btnLogout = base.xpathFE("//li[@class='header_logout__1Xu3f']");
+		base.click(btnLogout);
+		Thread.sleep(3000);
+	}
+
+	@Test(priority = 3)
+	private void signIn() throws InterruptedException {
+		WebElement btnProfile2 = base.xpathFE("//img[@alt='myaccount']");
+		base.click(btnProfile2);
+		WebElement btnSignIn1 = base.xpathFE("//a[@href='/signin']");
+		base.click(btnSignIn1);
+		Thread.sleep(3000);
+	}
+
+	@Test(priority = 4)
+	private void editProfile() throws InterruptedException {
+		WebElement txtEmailOrmobile = base.xpathFE("//input[@type='text']");
+		base.sendValue(txtEmailOrmobile, "9843667158");
+		WebElement txtPassword1 = base.xpathFE("//input[@type='password']");
+		base.sendValue(txtPassword1, "testid@33");
+		WebElement btnLogin = base.xpathFE("//button[@type='submit']");
+		base.click(btnLogin);
+		Thread.sleep(4000);
+		WebElement btnProfile3 = base.xpathFE("//img[@alt='myaccount']");
+		base.click(btnProfile3);
+		WebElement btnMyProfile = base.xpathFE("//li[@class='header_myprofile__92dLG']");
+		base.click(btnMyProfile);
+		Thread.sleep(2000);
+		WebElement btnEditProfile = base.xpathFE("(//button[@type='button'])[2]");
+		base.click(btnEditProfile);
+		Thread.sleep(2000);
+
+		WebElement btnEditCompleteProfile = base.xpathFE("//button[text()= ' Edit Complete Profile']");
+		base.click(btnEditCompleteProfile);
+		Thread.sleep(2000);
+		WebElement btnGender1 = base.xpathFE("//span[text()='male']");
+		base.click(btnGender1);
+		WebElement txtFirstName = base.xpathFE("(//input[@type='text'])[1]");
+		base.sendValue(txtFirstName, " ");
+		WebElement txtLastName = base.xpathFE("(//input[@type='text'])[2]");
+		base.sendValue(txtLastName, "Ambani");
+		WebElement txtEmail = base.xpathFE("//input[@name='email']");
+		base.sendValue(txtEmail, "testid57@gmail.com");
+		WebElement txtMobile = base.xpathFE("//input[@type='number']");
+		base.click(txtMobile);
+		WebElement btnDone = base.xpathFE("//button[@type='submit']");
+		base.click(btnDone);
+		Thread.sleep(3000);
+		WebElement btnMyAccounts = base.xpathFE("//span[text()='My Accounts']");
+		base.click(btnMyAccounts);
+	}
+
+	@AfterMethod
+	private void endTime() {
+		Date d1 = new Date();
+		System.out.println("End Time:" + "\n" + d1 + "\n");
+	}
+
+	@AfterClass
+	private void quitBrowser() {
+		base.quitBrowser();
+	}
+
+}
